@@ -1,7 +1,17 @@
 import React from 'react';
-import { Search, Bell, User, ShieldCheck } from 'lucide-react';
+import { Search, Bell, User, LogOut } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
-export default function Navbar({ userRole, setUserRole }) {
+export default function Navbar() {
+  const { userRole, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
     <header className="navbar">
       <div className="nav-search">
@@ -10,21 +20,7 @@ export default function Navbar({ userRole, setUserRole }) {
       </div>
 
       <div className="nav-profile">
-        {/* Role Switcher for Testing */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <small style={{ color: '#64748b' }}>Switch View:</small>
-          <select 
-            value={userRole} 
-            onChange={(e) => setUserRole(e.target.value)}
-            style={{ padding: '0.3rem', borderRadius: '6px', border: '1px solid #cbd5e1' }}
-          >
-            <option value="Customer">Customer</option>
-            <option value="Reviewer">Reviewer</option>
-            <option value="Admin">Admin</option>
-          </select>
-        </div>
-
-        <span className="role-badge">{userRole} View</span>
+        {userRole && <span className="role-badge">{userRole} View</span>}
         <Bell size={20} color="#64748b" style={{ cursor: 'pointer' }} />
         
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
@@ -33,6 +29,14 @@ export default function Navbar({ userRole, setUserRole }) {
           </div>
           <span style={{ fontSize: '0.9rem', fontWeight: '600' }}>Ambreen</span>
         </div>
+        
+        <LogOut 
+          size={20} 
+          color="#ef4444" 
+          style={{ cursor: 'pointer', marginLeft: '10px' }} 
+          onClick={handleLogout} 
+          title="Logout" 
+        />
       </div>
     </header>
   );

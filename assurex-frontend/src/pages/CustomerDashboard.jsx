@@ -12,9 +12,34 @@ export default function CustomerDashboard() {
           <h1 style={{ fontSize: '1.75rem', fontWeight: '700' }}>Customer Dashboard</h1>
           <p style={{ color: 'var(--text-muted)', marginTop: '4px' }}>Overview of your covered products and automated warranty claims.</p>
         </div>
-        <button className="btn-primary" onClick={() => navigate('/submit-claim')}>
-          <PlusCircle size={18} /> File New Claim
-        </button>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button className="btn-secondary" onClick={() => document.getElementById('ocr-upload').click()} style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 16px', borderRadius: '6px', border: '1px solid #d1d5db', background: 'white', cursor: 'pointer' }}>
+            <span style={{ fontWeight: '500' }}>Scan Receipt (OCR)</span>
+            <input type="file" id="ocr-upload" style={{ display: 'none' }} accept="image/*" onChange={async (e) => {
+              if (e.target.files && e.target.files[0]) {
+                const formData = new FormData();
+                formData.append('receipt_image', e.target.files[0]);
+                try {
+                  const response = await fetch('http://localhost:8000/api/ocr/scan', {
+                    method: 'POST',
+                    body: formData
+                  });
+                  if (response.ok) {
+                    const data = await response.json();
+                    alert(`OCR Successful!\n\nExtracted Text: ${data.extracted_text}`);
+                  } else {
+                    alert('OCR Scan failed.');
+                  }
+                } catch (err) {
+                  alert('Error connecting to backend for OCR scan.');
+                }
+              }
+            }} />
+          </button>
+          <button className="btn-primary" onClick={() => navigate('/submit-claim')}>
+            <PlusCircle size={18} /> File New Claim
+          </button>
+        </div>
       </div>
 
       {/* Analytical KPI Cards */}
