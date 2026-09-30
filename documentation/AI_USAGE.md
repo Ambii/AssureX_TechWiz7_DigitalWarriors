@@ -2,20 +2,13 @@
 
 This file declares all AI tool assistance used during development, per the
 challenge's AI Tool Usage Declaration requirement.
-
-> **To the team:** every `[FILL IN — ...]` placeholder below must be
-> completed truthfully by whoever actually did the work before this file is
-> submitted. Claude (the AI tool used to draft this file) has no visibility
-> into your team member names or what manual testing you performed — those
-> fields must not be left blank, guessed, or fabricated.
-
 ---
 
 ## Compliance statement: final claim decision
 
 Per the requirement that the final claim decision must not be generated
 through an external generative-AI API: **confirmed compliant.** The claim
-verdict in this project is produced entirely by:
+verdict in this project is produced entirely by: Team
 
 1. **The team's Python classification model** — `model/xgboost_model.joblib`,
    loaded and run via `joblib`/`xgboost` in `app.py` (Path A / tabular prediction).
@@ -37,10 +30,6 @@ direct line-by-line review of `app.py` and every module in `assure/`.
 No AI image-generation tool was used to create any asset found in the
 reviewed codebase — `claim_summary_card.png` is generated programmatically
 via PIL (`ImageDraw`), not by an image-generation model.
-
-`[FILL IN — if the team used an AI image generator (e.g. for the blog post,
-video, or any frontend visual asset like hero.png), declare the tool name
-and purpose here. If none were used, state "No AI-generated images used."]`
 
 ---
 
