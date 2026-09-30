@@ -38,11 +38,8 @@ export default function Sidebar() {
               <NavLink to="/admin" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
                 <LayoutDashboard size={18} /> Admin Telemetry
               </NavLink>
-              <NavLink to="/evaluator" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-                <Activity size={18} /> Live Evaluator
-              </NavLink>
               <NavLink to="/admin/users" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-                <Users size={18} /> Manage Users
+                <Users size={18} /> Manage Users and Product
               </NavLink>
             </>
           )}

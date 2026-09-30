@@ -1,0 +1,136 @@
+{
+  "product_category": "Laptop",
+  "coverage_duration": {
+    "months": 12
+  },
+  "warranty_start_conditions": {
+    "start_trigger": "purchase_date",
+    "start_date_source_field": "Purchase_Date",
+    "requires_product_registration": false,
+    "registration_grace_days": 0,
+    "notes": "Coverage begins on the invoice/purchase date shown on purchase_proof. If requires_product_registration is true, the customer must register within registration_grace_days of purchase or standard coverage still applies but claims may be routed to manual_review for verification."
+  },
+  "covered_faults": [
+    "Battery failure",
+    "Charging issue",
+    "Keyboard failure",
+    "Motherboard failure",
+    "Screen flickering"
+  ],
+  "irreparable_fault_types": [
+    "Motherboard failure"
+  ],
+  "exclusions": {
+    "excluded_damage_causes": [
+      "Physical",
+      "Water/Liquid",
+      "Normal Wear"
+    ],
+    "excluded_scenarios": [
+      "unauthorized repair performed before claim submission",
+      "tampered or removed serial number",
+      "counterfeit or grey-market unit (model_match == Mismatch)",
+      "software issues caused by user-installed unauthorized firmware"
+    ]
+  },
+  "max_claim_amount": 85000,
+  "claim_reporting_period": {
+    "days_from_fault_occurrence": 30,
+    "description": "Claim must be submitted within 30 days of the fault occurrence date.",
+    "outside_period_result": "hard_fail"
+  },
+  "grace_periods": {
+    "late_reporting_grace_days": 7,
+    "late_reporting_grace_description": "Claims filed 30-37 days after fault occurrence are not hard-failed; they are downgraded to manual_review instead of auto-reject.",
+    "near_expiry_grace_days": 15,
+    "near_expiry_grace_description": "If the fault occurred before warranty expiry but the claim is filed up to 15 days after the nominal expiry date, warranty_status is treated as 'Near Expiry' (manual review) rather than 'Expired' (hard fail)."
+  },
+  "repair_conditions": {
+    "pre_authorization_required": true,
+    "diy_or_third_party_repair_allowed": false,
+    "repair_report_required_if_previous_repairs": true,
+    "max_repair_attempts_same_fault_before_mandatory_replacement": 2,
+    "unauthorized_repair_result": "hard_fail"
+  },
+  "authorized_service_center_requirements": {
+    "must_use_authorized_center": true,
+    "acceptable_repair_authorization_values": [
+      "Authorized",
+      "Not Applicable"
+    ],
+    "rejected_repair_authorization_values": [
+      "Unauthorized"
+    ],
+    "review_repair_authorization_values": [
+      "Unknown"
+    ]
+  },
+  "replacement_conditions": {
+    "eligible_if_any": [
+      "previous_repair_count >= 2 for the same fault_type",
+      "fault_type is in irreparable_fault_types for this category",
+      "repair cost estimate exceeds replacement_cost_threshold_percent of purchase price"
+    ],
+    "replacement_cost_threshold_percent": 70,
+    "replacement_always_requires_manual_review": true
+  },
+  "mandatory_documents": [
+    "purchase_proof",
+    "warranty_card",
+    "serial_number_evidence",
+    "fault_evidence"
+  ],
+  "conditional_documents": [
+    {
+      "condition": "previous_repair_count > 0",
+      "require": [
+        "repair_report",
+        "repair_authorization"
+      ]
+    }
+  ],
+  "damage_cause_rules": {
+    "always_covered": [
+      "Electrical",
+      "Mechanical",
+      "Software/Firmware"
+    ],
+    "excluded_unless_extended_warranty": [
+      "Physical",
+      "Water/Liquid",
+      "Normal Wear"
+    ]
+  },
+  "hard_fail_rules": [
+    "warranty_status == 'Expired' and days_past_expiry > near_expiry_grace_days",
+    "excluded_damage == 'Yes' and extended_warranty == 'No'",
+    "duplicate_claim_indicator == 'Yes'",
+    "contradiction_indicator == 'Yes'",
+    "claim_reporting_within_period == 'Outside Period' and days_late > late_reporting_grace_days",
+    "serial_number_match == 'Mismatch'",
+    "model_match == 'Mismatch'",
+    "repair_authorization == 'Unauthorized'",
+    "purchase_proof == 'Missing' and warranty_card == 'Missing'"
+  ],
+  "warning_rules": [
+    "previous_repair_count > 0 (note repair history on the claim, does not block)",
+    "extended_warranty == 'Yes' used to cover an otherwise-excluded damage cause (flag for audit trail)",
+    "claim amount is within 10% of max_claim_amount for the category",
+    "claim filed within late_reporting_grace_days of the reporting deadline",
+    "repair_center is authorized but outside the customer's home region"
+  ],
+  "manual_review_rules": [
+    "warranty_status == 'Near Expiry'",
+    "fault_coverage == 'Uncertain'",
+    "excluded_damage == 'Uncertain'",
+    "missing_document_count >= 1 and missing_document_count <= 2",
+    "claimant_details_complete == 'No'",
+    "supporting_evidence_complete == 'No'",
+    "duplicate_claim_indicator == 'Possible'",
+    "contradiction_indicator == 'Possible'",
+    "claim_reporting_within_period == 'Uncertain'",
+    "serial_number_match == 'Unknown' or model_match == 'Unknown'",
+    "repair_authorization == 'Unknown'",
+    "replacement requested (see replacement_conditions)"
+  ]
+}

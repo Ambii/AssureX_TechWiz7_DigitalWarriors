@@ -7,6 +7,9 @@ numpy
 python-multipart
 joblib
 SQLAlchemy
-supabase
-tensorflow
+psycopg2-binary
 pillow
+xgboost
+paddlepaddle==2.6.2
+paddleocr==2.7.0
+opencv-python

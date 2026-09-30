@@ -13,6 +13,27 @@ export default function AdminDashboard() {
     gtm_uptime: 100
   });
 
+  const handleExportCSV = () => {
+    const csvContent = "data:text/csv;charset=utf-8," 
+      + "Metric,Value\n"
+      + `Total Claims Processed,${stats.total_claims}\n`
+      + `Valid Claims,${stats.valid_claims}\n`
+      + `Manual Reviews Required,${stats.manual_review}\n`
+      + `Model Disagreements,${stats.model_disagreements}\n\n`
+      + "Claim ID,Python Model,Teachable Machine,Match Status,Decision\n"
+      + "#CLM-9102,98.5% Valid,97.2% Valid,Strong Match,Auto-Approved\n"
+      + "#CLM-9101,95.1% Valid,93.8% Valid,Strong Match,Auto-Approved\n"
+      + "#CLM-9099,89.4% Valid,91.0% Valid,Acceptable Match,Auto-Approved\n";
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "AssureX_Admin_Report.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   useEffect(() => {
     fetch('/api/admin/stats')
       .then(res => res.json())
@@ -28,7 +49,7 @@ export default function AdminDashboard() {
           <p style={{ color: 'var(--text-muted)', marginTop: '4px' }}>System-wide operations and dual-AI performance metrics.</p>
         </div>
         <div style={{ display: 'flex', gap: '1rem' }}>
-          <button className="btn-primary" style={{ background: '#fff', color: '#0f172a', border: '1px solid var(--border-color)' }}>
+          <button className="btn-primary" onClick={handleExportCSV} style={{ background: '#fff', color: '#0f172a', border: '1px solid var(--border-color)' }}>
             Export CSV Report
           </button>
           <button className="btn-primary" onClick={() => navigate('/reviewer')}>

@@ -14,14 +14,11 @@ export default function Navbar() {
 
   return (
     <header className="navbar">
-      <div className="nav-search">
-        <Search size={18} color="#94a3b8" />
-        <input type="text" placeholder="Search claims, warranties, serial numbers..." />
+      <div className="nav-search" style={{ visibility: 'hidden' }}>
       </div>
 
       <div className="nav-profile">
         {userRole && <span className="role-badge">{userRole} View</span>}
-        <Bell size={20} color="#64748b" style={{ cursor: 'pointer' }} />
         
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
           <div style={{ background: '#e2e8f0', padding: '6px', borderRadius: '50%' }}>

@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
+  --primary: #2086ab;
+  --primary-hover: #1e9fb0;
   --bg-main: #f8fafc;
   --bg-surface: #ffffff;
   --border-color: #e2e8f0;
@@ -128,7 +128,8 @@ body {
   transition: all 0.2s;
 }
 
-.nav-item:hover, .nav-item.active {
+.nav-item:hover,
+.nav-item.active {
   background: #1e293b;
   color: #fff;
 }
@@ -225,9 +226,21 @@ td {
   font-weight: 600;
   display: inline-block;
 }
-.status-pill.approved { background: #dcfce7; color: #15803d; }
-.status-pill.pending { background: #fef9c3; color: #a16207; }
-.status-pill.review { background: #ffedd5; color: #c2410c; }
+
+.status-pill.approved {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-pill.pending {
+  background: #fef9c3;
+  color: #a16207;
+}
+
+.status-pill.review {
+  background: #ffedd5;
+  color: #c2410c;
+}
 
 /* Buttons */
 .btn-primary {
@@ -243,4 +256,22 @@ td {
   gap: 8px;
   transition: background 0.2s;
 }
-.btn-primary:hover { background: var(--primary-hover); }
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+/* Spinner animation for OCR scanning indicator */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.spin-icon {
+  animation: spin 1s linear infinite;
+}
+
+/* Fade-in for dashboard containers */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

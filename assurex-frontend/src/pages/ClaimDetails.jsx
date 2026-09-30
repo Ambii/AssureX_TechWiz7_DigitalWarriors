@@ -1,12 +1,18 @@
 import React from 'react';
 import { Download, ArrowLeft, CheckCircle, AlertTriangle, FileText } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function ClaimDetails() {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const claimId = id || 'CLM-9042';
   const pythonConfidence = 88.5;
   const gtmConfidence = 86.2;
   const difference = Math.abs(pythonConfidence - gtmConfidence).toFixed(1);
+
+  const handleExportPDF = () => {
+    window.print();
+  };
 
   return (
     <div className="dashboard-container" style={{ animation: 'fadeIn 0.5s ease-out', maxWidth: '900px', margin: '0 auto' }}>
@@ -18,7 +24,7 @@ export default function ClaimDetails() {
         >
           <ArrowLeft size={20} />
         </button>
-        <h1 style={{ fontSize: '1.5rem', fontWeight: '700', margin: 0 }}>Claim #CLM-9042</h1>
+        <h1 style={{ fontSize: '1.5rem', fontWeight: '700', margin: 0 }}>Claim #{claimId}</h1>
         <span className="status-pill approved" style={{ marginLeft: 'auto' }}>Approved</span>
       </div>
 
@@ -27,7 +33,7 @@ export default function ClaimDetails() {
           <h2 style={{ fontSize: '1.1rem', marginBottom: '4px' }}>Downloadable Claim Report</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: 0 }}>Contains all evidence, AI telemetry, contradictions, and reviewer audits.</p>
         </div>
-        <button className="btn-primary" style={{ background: '#4f46e5' }}>
+        <button className="btn-primary" onClick={handleExportPDF} style={{ background: '#4f46e5' }}>
           <Download size={18} /> Export PDF Report
         </button>
       </div>

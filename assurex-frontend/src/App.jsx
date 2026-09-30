@@ -36,7 +36,7 @@ const AppRoutes = () => {
       <Route path="/admin" element={<ProtectedRoute allowedRoles={['Admin']}><AdminDashboard /></ProtectedRoute>} />
       <Route path="/admin/users" element={<ProtectedRoute allowedRoles={['Admin']}><UserManagement /></ProtectedRoute>} />
       
-      <Route path="/reviewer" element={<ProtectedRoute allowedRoles={['Reviewer']}><ReviewQueue /></ProtectedRoute>} />
+      <Route path="/reviewer" element={<ProtectedRoute allowedRoles={['Reviewer', 'Admin']}><ReviewQueue /></ProtectedRoute>} />
       <Route path="/evaluator" element={<ProtectedRoute allowedRoles={['Admin', 'Evaluator']}><LiveEvaluator /></ProtectedRoute>} />
     </Routes>
   );
